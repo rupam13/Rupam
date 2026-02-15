@@ -30,6 +30,22 @@
       overflow-x: hidden;
     }
 
+    body::after {
+      content: "";
+      position: fixed;
+      width: 280px;
+      height: 280px;
+      left: var(--mx, -400px);
+      top: var(--my, -400px);
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(189, 10, 10, 0.17) 0%, rgba(189, 10, 10, 0.06) 35%, transparent 70%);
+      z-index: 2;
+      transition: left 120ms linear, top 120ms linear;
+      mix-blend-mode: screen;
+    }
+
     .noise::before {
       content: "";
       position: fixed;
@@ -234,6 +250,12 @@
     .work h3 { margin: 0; font-size: 0.98rem; }
     .work p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.86rem; }
 
+    .tilt-card {
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 160ms ease-out, box-shadow 160ms ease-out, border-color 160ms ease-out;
+    }
+
     .kicker {
       display: inline-block;
       margin-top: 0.45rem;
@@ -264,6 +286,33 @@
 
     .project-item strong { font-size: 0.95rem; }
     .project-item span { font-size: 0.78rem; color: #ebb4b4; }
+
+    .cursor-dot,
+    .cursor-ring {
+      position: fixed;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      z-index: 50;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      opacity: 0;
+    }
+
+    .cursor-dot {
+      width: 7px;
+      height: 7px;
+      background: #fff;
+      box-shadow: 0 0 12px rgba(255,255,255,0.9);
+    }
+
+    .cursor-ring {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(189, 10, 10, 0.8);
+      box-shadow: 0 0 18px rgba(189, 10, 10, 0.5);
+      transition: width 120ms ease, height 120ms ease, border-color 120ms ease;
+    }
 
     .contact-grid {
       display: grid;
@@ -344,9 +393,17 @@
       .menu-btn { width: 50px; height: 50px; right: 0.65rem; }
       .nav-panel { right: 0.65rem; }
     }
+
+    @media (hover: hover) and (pointer: fine) {
+      body { cursor: none; }
+      .cursor-dot,
+      .cursor-ring { opacity: 1; }
+    }
   </style>
 </head>
 <body class="noise">
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
   <button class="menu-btn" id="menuBtn" aria-label="Open quick nav">+MENU</button>
   <nav class="nav-panel" id="navPanel">
     <a href="#top">Intro</a>
@@ -448,6 +505,8 @@
   <script>
     const menuBtn = document.getElementById('menuBtn');
     const navPanel = document.getElementById('navPanel');
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorRing = document.getElementById('cursorRing');
 
     menuBtn.addEventListener('click', () => {
       navPanel.classList.toggle('open');
@@ -455,6 +514,49 @@
 
     navPanel.querySelectorAll('a').forEach((a) => {
       a.addEventListener('click', () => navPanel.classList.remove('open'));
+    });
+
+    document.querySelectorAll('.work, .project-item, .side-card, .box, .btn').forEach((el) => {
+      el.classList.add('tilt-card');
+    });
+
+    const hoverTargets = document.querySelectorAll('.tilt-card, .menu-btn');
+    hoverTargets.forEach((el) => {
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rx = -((y / rect.height) - 0.5) * 8;
+        const ry = ((x / rect.width) - 0.5) * 10;
+        el.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = '';
+      });
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      const x = `${e.clientX}px`;
+      const y = `${e.clientY}px`;
+      document.body.style.setProperty('--mx', x);
+      document.body.style.setProperty('--my', y);
+      cursorDot.style.left = x;
+      cursorDot.style.top = y;
+      cursorRing.style.left = x;
+      cursorRing.style.top = y;
+    });
+
+    document.querySelectorAll('a, button, .tilt-card').forEach((el) => {
+      el.addEventListener('mouseenter', () => {
+        cursorRing.style.width = '54px';
+        cursorRing.style.height = '54px';
+        cursorRing.style.borderColor = 'rgba(255,255,255,0.85)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursorRing.style.width = '38px';
+        cursorRing.style.height = '38px';
+        cursorRing.style.borderColor = 'rgba(189, 10, 10, 0.8)';
+      });
     });
   </script>
 </body>
