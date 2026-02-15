@@ -386,6 +386,25 @@
       align-items: start;
     }
 
+    .orbit-status {
+      margin: 0 0 0.7rem;
+      border: 1px solid #c7dce3;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #f6fbfd, #eef8f5);
+      padding: 0.32rem 0.65rem;
+      font-size: 0.78rem;
+      color: #2f5861;
+      font-weight: 700;
+      width: fit-content;
+      box-shadow: 0 6px 16px rgba(41, 82, 94, 0.08);
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+
+    .orbit-status.flash {
+      opacity: 0.55;
+      transform: translateY(2px);
+    }
+
     .orbit-wrap {
       position: relative;
       width: min(420px, 100%);
@@ -395,6 +414,88 @@
       border: 1px dashed #bdd0d8;
       background: radial-gradient(circle at center, #f8fcfd 0%, #eef6f8 62%, transparent 62%);
       overflow: hidden;
+      box-shadow:
+        inset 0 0 0 1px rgba(208, 227, 233, 0.75),
+        0 18px 34px rgba(30, 77, 92, 0.16);
+    }
+
+    .orbit-wrap::before {
+      content: "";
+      position: absolute;
+      inset: -8%;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, rgba(32, 138, 120, 0.28), rgba(32, 138, 120, 0) 22%, rgba(32, 138, 120, 0.22) 44%, rgba(32, 138, 120, 0) 68%, rgba(32, 138, 120, 0.2));
+      filter: blur(9px);
+      animation: haloSpin 14s linear infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .orbit-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 13%;
+      border-radius: 50%;
+      border: 1px solid rgba(122, 178, 190, 0.35);
+      box-shadow: 0 0 24px rgba(64, 171, 151, 0.2);
+      z-index: 1;
+      pointer-events: none;
+      animation: pulseRing 3.4s ease-in-out infinite;
+    }
+
+    @keyframes haloSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulseRing {
+      0%, 100% { transform: scale(1); opacity: 0.45; }
+      50% { transform: scale(1.03); opacity: 0.8; }
+    }
+
+    .orbit-energy {
+      position: absolute;
+      inset: 17%;
+      border-radius: 50%;
+      border: 1px solid rgba(87, 165, 182, 0.45);
+      border-top-color: rgba(35, 150, 131, 0.95);
+      border-right-color: rgba(35, 150, 131, 0.7);
+      z-index: 2;
+      animation: spin 8s linear infinite;
+      pointer-events: none;
+    }
+
+    .orbit-energy.e2 {
+      inset: 22%;
+      border-color: rgba(118, 177, 190, 0.36);
+      border-bottom-color: rgba(35, 150, 131, 0.9);
+      border-left-color: rgba(35, 150, 131, 0.7);
+      animation-direction: reverse;
+      animation-duration: 6.2s;
+      opacity: 0.92;
+    }
+
+    .orbit-sparks {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .orbit-sparks span {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(58, 173, 153, 0.8);
+      box-shadow: 0 0 10px rgba(58, 173, 153, 0.65);
+      animation: sparkOrbit var(--d, 3.4s) linear var(--delay, 0s) infinite;
+      transform-origin: 210px 210px;
+    }
+
+    @keyframes sparkOrbit {
+      from { transform: rotate(0deg) translateX(124px) scale(0.7); opacity: 0.3; }
+      50% { opacity: 1; }
+      to { transform: rotate(360deg) translateX(124px) scale(1.05); opacity: 0.3; }
     }
 
     .pipe-layer {
@@ -418,6 +519,16 @@
       stroke: #2f9d89;
       opacity: 0.95;
       stroke-width: 6;
+    }
+
+    .orbit-wrap.source-banking .pipe-line[data-source="banking"],
+    .orbit-wrap.source-automation .pipe-line[data-source="automation"],
+    .orbit-wrap.source-ai .pipe-line[data-source="ai"],
+    .orbit-wrap.source-governance .pipe-line[data-source="governance"] {
+      stroke: #21a58f;
+      opacity: 1;
+      stroke-width: 6;
+      filter: drop-shadow(0 0 6px rgba(33, 165, 143, 0.58));
     }
 
     .pipe-bubble {
@@ -509,6 +620,23 @@
       box-shadow: 0 10px 22px rgba(15, 122, 109, 0.14);
       z-index: 3;
       overflow: hidden;
+    }
+
+    .core-pulse {
+      position: absolute;
+      inset: -8%;
+      border-radius: 50%;
+      border: 1px solid rgba(81, 181, 162, 0.4);
+      opacity: 0;
+      animation: corePulse 2.8s ease-out infinite;
+      z-index: 0;
+    }
+
+    .core-pulse.p2 { animation-delay: 1.2s; }
+
+    @keyframes corePulse {
+      0% { transform: scale(0.74); opacity: 0.65; }
+      100% { transform: scale(1.25); opacity: 0; }
     }
 
     .core-water {
@@ -1010,8 +1138,12 @@
     <section class="section" id="orbit">
       <h2 class="title">Skill <span class="red">Orbit Mapping</span></h2>
       <p class="subtitle">All mapped skills are already connected and flowing into the ServiceNow Developer core to show full transition readiness.</p>
+      <div class="orbit-status" id="orbitStatus">Live Match Engine: Banking Ops -> Incident/Request performance fit</div>
       <div class="orbit-grid">
-        <div class="orbit-wrap tilt-card">
+        <div class="orbit-wrap tilt-card" id="orbitWrap">
+          <div class="orbit-energy"></div>
+          <div class="orbit-energy e2"></div>
+          <div class="orbit-sparks" id="orbitSparks" aria-hidden="true"></div>
           <svg class="pipe-layer" viewBox="0 0 420 420" aria-hidden="true">
             <path class="pipe-line" data-source="banking" d="M210 35 Q210 120 210 210"></path>
             <path class="pipe-line" data-source="automation" d="M385 210 Q300 210 210 210"></path>
@@ -1037,6 +1169,8 @@
           <div class="orbit-node n3" tabindex="0">AI + Integrations<b>25 hrs saved/wk</b><span class="orbit-tip">Maps to IntegrationHub, REST APIs, and cross-platform orchestration.</span></div>
           <div class="orbit-node n4" tabindex="0">Governance<b>-31% errors</b><span class="orbit-tip">Maps to control checks, change quality, and platform reliability discipline.</span></div>
           <div class="orbit-core">
+            <span class="core-pulse"></span>
+            <span class="core-pulse p2"></span>
             <div class="core-water" id="coreWater"></div>
             <p class="core-title">ServiceNow Developer</p>
             <p class="core-fill" id="coreFill">Readiness: 0%</p>
@@ -1201,6 +1335,9 @@
     const navPanel = document.getElementById('navPanel');
     const cursorDot = document.getElementById('cursorDot');
     const cursorRing = document.getElementById('cursorRing');
+    const orbitWrap = document.getElementById('orbitWrap');
+    const orbitStatus = document.getElementById('orbitStatus');
+    const orbitSparks = document.getElementById('orbitSparks');
 
     menuBtn.addEventListener('click', () => {
       navPanel.classList.toggle('open');
@@ -1262,6 +1399,51 @@
         const tag = el.getAttribute('data-click') || 'unknown';
         trackEvent(tag);
       });
+    });
+
+    const orbitStatusSteps = [
+      'Live Match Engine: Banking Ops -> Incident/Request performance fit',
+      'Live Match Engine: Automation -> Flow Designer delivery acceleration',
+      'Live Match Engine: AI + Integrations -> API orchestration confidence',
+      'Live Match Engine: Governance -> Control and change quality readiness'
+    ];
+    let orbitStatusIndex = 0;
+    setInterval(() => {
+      if (!orbitStatus) return;
+      orbitStatus.classList.add('flash');
+      setTimeout(() => {
+        orbitStatusIndex = (orbitStatusIndex + 1) % orbitStatusSteps.length;
+        orbitStatus.textContent = orbitStatusSteps[orbitStatusIndex];
+        orbitStatus.classList.remove('flash');
+      }, 160);
+    }, 2400);
+
+    if (orbitSparks) {
+      for (let i = 0; i < 18; i += 1) {
+        const spark = document.createElement('span');
+        spark.style.left = '50%';
+        spark.style.top = '50%';
+        spark.style.setProperty('--d', `${2.6 + ((i % 6) * 0.42)}s`);
+        spark.style.setProperty('--delay', `${i * 0.11}s`);
+        spark.style.transform = `rotate(${i * 20}deg) translateX(${118 + (i % 3) * 8}px)`;
+        orbitSparks.appendChild(spark);
+      }
+    }
+
+    document.querySelectorAll('.orbit-node').forEach((node) => {
+      const txt = node.textContent.toLowerCase();
+      let source = '';
+      if (txt.includes('banking')) source = 'banking';
+      if (txt.includes('automation')) source = 'automation';
+      if (txt.includes('ai')) source = 'ai';
+      if (txt.includes('governance')) source = 'governance';
+      if (!source) return;
+      const on = () => orbitWrap && orbitWrap.classList.add(`source-${source}`);
+      const off = () => orbitWrap && orbitWrap.classList.remove(`source-${source}`);
+      node.addEventListener('mouseenter', on);
+      node.addEventListener('mouseleave', off);
+      node.addEventListener('focus', on);
+      node.addEventListener('blur', off);
     });
 
     const skillButtons = Array.from(document.querySelectorAll('.skill-btn'));
