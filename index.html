@@ -397,6 +397,43 @@
       overflow: hidden;
     }
 
+    .pipe-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .pipe-line {
+      fill: none;
+      stroke: #a6c7cf;
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-dasharray: 1 11;
+      animation: pipeFlow 1.3s linear infinite;
+      opacity: 0.65;
+    }
+
+    .pipe-line.active {
+      stroke: #2f9d89;
+      opacity: 0.95;
+      stroke-width: 6;
+    }
+
+    .pipe-bubble {
+      fill: #2f9d89;
+      opacity: 0.2;
+      transition: opacity 220ms ease;
+    }
+
+    .pipe-bubble.active {
+      opacity: 0.95;
+    }
+
+    @keyframes pipeFlow {
+      to { stroke-dashoffset: -24; }
+    }
+
     .orbit-ring {
       position: absolute;
       inset: 7%;
@@ -436,6 +473,35 @@
       padding: 0.6rem;
       box-shadow: 0 10px 22px rgba(15, 122, 109, 0.14);
       z-index: 3;
+      overflow: hidden;
+    }
+
+    .core-water {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 0%;
+      background: linear-gradient(180deg, rgba(67, 184, 167, 0.22), rgba(33, 146, 130, 0.35));
+      transition: height 380ms ease;
+      z-index: 1;
+    }
+
+    .core-water::before {
+      content: "";
+      position: absolute;
+      left: -40%;
+      right: -40%;
+      top: -10px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(82, 196, 180, 0.55);
+      animation: wave 2.4s linear infinite;
+    }
+
+    @keyframes wave {
+      from { transform: translateX(0); }
+      to { transform: translateX(35%); }
     }
 
     .core-title {
@@ -444,6 +510,8 @@
       line-height: 1.2;
       color: #115b52;
       font-weight: 800;
+      position: relative;
+      z-index: 2;
     }
 
     .core-fill {
@@ -451,6 +519,8 @@
       font-size: 0.76rem;
       color: #3e7070;
       font-weight: 700;
+      position: relative;
+      z-index: 2;
     }
 
     .orbit-picks {
@@ -462,6 +532,8 @@
       max-height: 82px;
       overflow: auto;
       padding-right: 0.25rem;
+      position: relative;
+      z-index: 2;
     }
 
     .orbit-picks span {
@@ -853,15 +925,35 @@
 
     <section class="section" id="orbit">
       <h2 class="title">Skill <span class="red">Orbit Mapping</span></h2>
-      <p class="subtitle">Click skills from Banking, Automation, and AI/Integrations to fill the ServiceNow Developer core and show direct role fit.</p>
+      <p class="subtitle">Click skills from four sources to pour experience into the ServiceNow Developer core and visualize transition readiness.</p>
       <div class="orbit-grid">
         <div class="orbit-wrap tilt-card">
+          <svg class="pipe-layer" viewBox="0 0 420 420" aria-hidden="true">
+            <path class="pipe-line" data-source="banking" d="M210 35 Q210 120 210 210"></path>
+            <path class="pipe-line" data-source="automation" d="M385 210 Q300 210 210 210"></path>
+            <path class="pipe-line" data-source="ai" d="M210 385 Q210 300 210 210"></path>
+            <path class="pipe-line" data-source="governance" d="M35 210 Q120 210 210 210"></path>
+
+            <circle class="pipe-bubble" data-source="banking" r="4">
+              <animateMotion dur="1.9s" repeatCount="indefinite" path="M210 35 Q210 120 210 210"></animateMotion>
+            </circle>
+            <circle class="pipe-bubble" data-source="automation" r="4">
+              <animateMotion dur="1.8s" repeatCount="indefinite" path="M385 210 Q300 210 210 210"></animateMotion>
+            </circle>
+            <circle class="pipe-bubble" data-source="ai" r="4">
+              <animateMotion dur="2s" repeatCount="indefinite" path="M210 385 Q210 300 210 210"></animateMotion>
+            </circle>
+            <circle class="pipe-bubble" data-source="governance" r="4">
+              <animateMotion dur="1.95s" repeatCount="indefinite" path="M35 210 Q120 210 210 210"></animateMotion>
+            </circle>
+          </svg>
           <div class="orbit-ring"></div>
           <div class="orbit-node n1">Banking Ops</div>
           <div class="orbit-node n2">Automation</div>
           <div class="orbit-node n3">AI + Integrations</div>
           <div class="orbit-node n4">Governance</div>
           <div class="orbit-core">
+            <div class="core-water" id="coreWater"></div>
             <p class="core-title">ServiceNow Developer</p>
             <p class="core-fill" id="coreFill">Readiness: 0%</p>
             <div class="orbit-picks" id="orbitPicks"></div>
@@ -871,28 +963,37 @@
           <div class="skill-block">
             <h4>Banking -> ITSM</h4>
             <div class="skill-tags">
-              <button class="skill-btn" data-skill="SLA Discipline">SLA Discipline</button>
-              <button class="skill-btn" data-skill="Escalation Handling">Escalation Handling</button>
-              <button class="skill-btn" data-skill="Audit Controls">Audit Controls</button>
-              <button class="skill-btn" data-skill="Ops Governance">Ops Governance</button>
+              <button class="skill-btn" data-source="banking" data-skill="SLA Discipline">SLA Discipline</button>
+              <button class="skill-btn" data-source="banking" data-skill="Escalation Handling">Escalation Handling</button>
+              <button class="skill-btn" data-source="banking" data-skill="Audit Controls">Audit Controls</button>
+              <button class="skill-btn" data-source="banking" data-skill="Ops Governance">Ops Governance</button>
             </div>
           </div>
           <div class="skill-block">
             <h4>Automation -> Workflow</h4>
             <div class="skill-tags">
-              <button class="skill-btn" data-skill="Workflow Design">Workflow Design</button>
-              <button class="skill-btn" data-skill="Standardization">Standardization</button>
-              <button class="skill-btn" data-skill="Manual Effort Reduction">Manual Effort Reduction</button>
-              <button class="skill-btn" data-skill="Flow Optimization">Flow Optimization</button>
+              <button class="skill-btn" data-source="automation" data-skill="Workflow Design">Workflow Design</button>
+              <button class="skill-btn" data-source="automation" data-skill="Standardization">Standardization</button>
+              <button class="skill-btn" data-source="automation" data-skill="Manual Effort Reduction">Manual Effort Reduction</button>
+              <button class="skill-btn" data-source="automation" data-skill="Flow Optimization">Flow Optimization</button>
             </div>
           </div>
           <div class="skill-block">
             <h4>AI/Integration -> Platform</h4>
             <div class="skill-tags">
-              <button class="skill-btn" data-skill="API-first Thinking">API-first Thinking</button>
-              <button class="skill-btn" data-skill="Data Orchestration">Data Orchestration</button>
-              <button class="skill-btn" data-skill="System Integration">System Integration</button>
-              <button class="skill-btn" data-skill="Scalable Delivery">Scalable Delivery</button>
+              <button class="skill-btn" data-source="ai" data-skill="API-first Thinking">API-first Thinking</button>
+              <button class="skill-btn" data-source="ai" data-skill="Data Orchestration">Data Orchestration</button>
+              <button class="skill-btn" data-source="ai" data-skill="System Integration">System Integration</button>
+              <button class="skill-btn" data-source="ai" data-skill="Scalable Delivery">Scalable Delivery</button>
+            </div>
+          </div>
+          <div class="skill-block">
+            <h4>Governance -> Platform Trust</h4>
+            <div class="skill-tags">
+              <button class="skill-btn" data-source="governance" data-skill="Change Discipline">Change Discipline</button>
+              <button class="skill-btn" data-source="governance" data-skill="Risk Controls">Risk Controls</button>
+              <button class="skill-btn" data-source="governance" data-skill="Process Compliance">Process Compliance</button>
+              <button class="skill-btn" data-source="governance" data-skill="Quality Reviews">Quality Reviews</button>
             </div>
           </div>
         </div>
@@ -1075,8 +1176,11 @@
     const skillButtons = Array.from(document.querySelectorAll('.skill-btn'));
     const orbitPicks = document.getElementById('orbitPicks');
     const coreFill = document.getElementById('coreFill');
+    const coreWater = document.getElementById('coreWater');
+    const pipeLines = Array.from(document.querySelectorAll('.pipe-line'));
+    const pipeBubbles = Array.from(document.querySelectorAll('.pipe-bubble'));
     const picked = new Set();
-    const maxSkills = 12;
+    const maxSkills = 16;
 
     function renderOrbitFill() {
       orbitPicks.innerHTML = '';
@@ -1087,6 +1191,27 @@
       });
       const pct = Math.round((picked.size / maxSkills) * 100);
       coreFill.textContent = `Readiness: ${pct}%`;
+      coreWater.style.height = `${pct}%`;
+
+      const sourceCount = {
+        banking: 0,
+        automation: 0,
+        ai: 0,
+        governance: 0
+      };
+      skillButtons.forEach((btn) => {
+        if (!btn.classList.contains('used')) return;
+        const source = btn.getAttribute('data-source');
+        if (sourceCount[source] !== undefined) sourceCount[source] += 1;
+      });
+      pipeLines.forEach((line) => {
+        const source = line.getAttribute('data-source');
+        line.classList.toggle('active', sourceCount[source] > 0);
+      });
+      pipeBubbles.forEach((bubble) => {
+        const source = bubble.getAttribute('data-source');
+        bubble.classList.toggle('active', sourceCount[source] > 0);
+      });
     }
 
     skillButtons.forEach((btn) => {
