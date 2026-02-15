@@ -444,16 +444,51 @@
 
     .orbit-node {
       position: absolute;
-      width: 116px;
-      padding: 0.35rem 0.45rem;
+      width: 132px;
+      padding: 0.38rem 0.48rem;
       text-align: center;
       border: 1px solid #b9cdd6;
-      border-radius: 999px;
+      border-radius: 14px;
       background: #fff;
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       font-weight: 700;
       color: #35515d;
       box-shadow: 0 5px 14px rgba(44, 87, 101, 0.09);
+      line-height: 1.15;
+      z-index: 4;
+    }
+
+    .orbit-node b {
+      display: block;
+      margin-top: 0.18rem;
+      font-size: 0.9rem;
+      color: #0f7a6d;
+      letter-spacing: 0.01em;
+    }
+
+    .orbit-tip {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 8px);
+      transform: translateX(-50%) translateY(8px);
+      width: 170px;
+      border: 1px solid #b8d5ce;
+      border-radius: 10px;
+      background: #f5fdfb;
+      color: #22554b;
+      padding: 0.34rem 0.45rem;
+      font-size: 0.66rem;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.2s ease;
+      box-shadow: 0 8px 16px rgba(26, 86, 73, 0.12);
+    }
+
+    .orbit-node:hover .orbit-tip,
+    .orbit-node:focus-visible .orbit-tip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     .orbit-node.n1 { top: 3%; left: 50%; transform: translateX(-50%); }
@@ -561,6 +596,26 @@
     .skill-controls {
       display: grid;
       gap: 0.55rem;
+    }
+
+    .orbit-cta {
+      margin-top: 0.8rem;
+      border: 1px solid #c9d9df;
+      border-radius: 12px;
+      background: linear-gradient(110deg, #f6fbfc 0%, #eef8f5 100%);
+      padding: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .orbit-cta p {
+      margin: 0;
+      font-size: 0.86rem;
+      color: #294e59;
+      font-weight: 600;
     }
 
     .skill-block {
@@ -965,10 +1020,10 @@
             </circle>
           </svg>
           <div class="orbit-ring"></div>
-          <div class="orbit-node n1">Banking Ops</div>
-          <div class="orbit-node n2">Automation</div>
-          <div class="orbit-node n3">AI + Integrations</div>
-          <div class="orbit-node n4">Governance</div>
+          <div class="orbit-node n1" tabindex="0">Banking Ops<b>98% SLA</b><span class="orbit-tip">Maps to Incident, Request, and Escalation handling in ServiceNow ITSM.</span></div>
+          <div class="orbit-node n2" tabindex="0">Automation<b>42% faster TAT</b><span class="orbit-tip">Maps to Flow Designer, workflow automation, and fulfillment efficiency.</span></div>
+          <div class="orbit-node n3" tabindex="0">AI + Integrations<b>25 hrs saved/wk</b><span class="orbit-tip">Maps to IntegrationHub, REST APIs, and cross-platform orchestration.</span></div>
+          <div class="orbit-node n4" tabindex="0">Governance<b>-31% errors</b><span class="orbit-tip">Maps to control checks, change quality, and platform reliability discipline.</span></div>
           <div class="orbit-core">
             <div class="core-water" id="coreWater"></div>
             <p class="core-title">ServiceNow Developer</p>
@@ -1013,6 +1068,13 @@
               <button class="skill-btn" data-source="governance" data-skill="Quality Reviews">Quality Reviews</button>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="orbit-cta">
+        <p>See this capability in action through 2 ServiceNow-ready case demos.</p>
+        <div class="actions">
+          <a class="btn primary" data-icon="D1" href="#cases">View Case 1</a>
+          <a class="btn" data-icon="D2" href="#demo">View Case 2</a>
         </div>
       </div>
     </section>
