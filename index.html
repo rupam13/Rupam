@@ -148,10 +148,51 @@
       font-size: 0.82rem;
       background: #161616;
       transition: 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.38rem;
     }
 
     .btn:hover { transform: translateY(-1px); }
     .btn.primary { background: var(--red); border-color: #d32121; }
+    .btn::before {
+      content: attr(data-icon);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.3rem;
+      height: 1.3rem;
+      border-radius: 50%;
+      border: 1px solid #4c4c4c;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      background: #121212;
+      color: #f0f0f0;
+    }
+
+    .btn.hire-btn {
+      position: relative;
+      overflow: hidden;
+      border-color: #d32121;
+      background: #8f0b0b;
+    }
+
+    .btn.hire-btn::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 70%;
+      height: 100%;
+      transform: skewX(-22deg);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.34), transparent);
+      animation: shine 2.6s infinite;
+    }
+
+    @keyframes shine {
+      to { left: 150%; }
+    }
 
     .side-card {
       border: 1px solid #2f2f2f;
@@ -167,9 +208,42 @@
       border-radius: 50%;
       overflow: hidden;
       border: 2px solid #3a3a3a;
+      position: relative;
     }
 
     .portrait { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+
+    .hire-hover {
+      position: absolute;
+      inset: auto 50% 12%;
+      transform: translateX(-50%) translateY(12px);
+      border: 1px solid #e34040;
+      background: rgba(123, 9, 9, 0.9);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.36rem 0.72rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.84rem;
+      opacity: 0;
+      transition: 0.22s ease;
+      pointer-events: none;
+    }
+
+    .portrait-shell:hover .hire-hover {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    .portrait-shell:hover .portrait {
+      transform: scale(1.05);
+      filter: saturate(1.08) contrast(1.02);
+    }
+
+    .portrait {
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
 
     .side-card h2 { margin: 0 0 0.5rem; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.09em; color: #e0e0e0; }
     .meta { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; font-size: 0.9rem; }
@@ -403,16 +477,18 @@
           <span>Service Operations</span><span>Workflow Logic</span><span>SLA and KPI</span><span>OCR and APIs</span><span>Python</span><span>SQL</span>
         </div>
         <div class="actions">
-          <a class="btn primary track-click" data-click="resume_1page" href="./Profile%20(1).pdf">1-Page Resume</a>
-          <a class="btn track-click" data-click="resume_detailed" href="./resume.pdf">Detailed Resume</a>
-          <a class="btn track-click" data-click="linkedin" href="https://www.linkedin.com/in/rupam-wadibhasme-82832912a/" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a class="btn track-click" data-click="github" href="https://github.com/rupam13" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn primary track-click" data-icon="CV" data-click="resume_1page" href="./Profile%20(1).pdf">1-Page Resume</a>
+          <a class="btn track-click" data-icon="CV+" data-click="resume_detailed" href="./resume.pdf">Detailed Resume</a>
+          <a class="btn track-click" data-icon="IN" data-click="linkedin" href="https://www.linkedin.com/in/rupam-wadibhasme-82832912a/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn track-click" data-icon="GH" data-click="github" href="https://github.com/rupam13" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn hire-btn track-click" data-icon="HM" data-click="hire_me_mail" href="mailto:rupam13@hotmail.com">Hire Me</a>
         </div>
       </div>
 
       <aside class="side-card tilt-card">
         <div class="portrait-shell">
           <img class="portrait" src="./portrait-optimized.jpg" alt="Rupam portrait" width="680" height="680" />
+          <a class="hire-hover track-click" data-click="hire_me_hover" href="mailto:rupam13@hotmail.com">Hire Me</a>
         </div>
         <h2>Quick Facts</h2>
         <ul class="meta">
