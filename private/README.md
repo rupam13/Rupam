@@ -7,8 +7,8 @@ This folder adds a lightweight login-gated area inside the same repository:
 
 ## Current credentials
 
-- Username: `rupam13`
-- Password: `ChangeMe@2026`
+- Username: `shweta`
+- Password: `rupam`
 
 ## Important
 
