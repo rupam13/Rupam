@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Forever Yes</title>
+  <style>
+    :root {
+      --bg: #fff3f7;
+      --panel: #ffffff;
+      --text: #40212d;
+      --muted: #7d4f60;
+      --line: #f1ceda;
+      --accent: #e23a74;
+      --accent-2: #ff8bb1;
+      --shadow: 0 16px 30px rgba(226, 58, 116, 0.16);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 0% 0%, #ffe4ef 0, transparent 40%),
+        radial-gradient(circle at 100% 100%, #ffdbe9 0, transparent 35%),
+        var(--bg);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      width: min(900px, calc(100% - 1rem));
+      margin: 0.8rem auto 1rem;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .top {
+      padding: 0.75rem 0.9rem;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(120deg, #fff9fb 0%, #ffeef4 100%);
+    }
+
+    .title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .btn {
+      border: 1px solid #efc2d2;
+      border-radius: 999px;
+      padding: 0.28rem 0.58rem;
+      text-decoration: none;
+      color: var(--text);
+      background: #fff;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .stage {
+      padding: 1rem;
+      min-height: 64vh;
+      display: grid;
+      align-content: center;
+      gap: 0.75rem;
+      text-align: center;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      background: #fffdfd;
+      box-shadow: 0 8px 22px rgba(226, 58, 116, 0.12);
+      animation: in 380ms ease;
+    }
+
+    @keyframes in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      margin: 0 0 0.35rem;
+      font-size: clamp(1.4rem, 5vw, 2.2rem);
+      line-height: 1.15;
+      color: #7d1f46;
+    }
+
+    h2 {
+      margin: 0 0 0.45rem;
+      font-size: clamp(1.1rem, 4vw, 1.7rem);
+      color: #8a2650;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      position: relative;
+      min-height: 46px;
+    }
+
+    .action {
+      border: 1px solid #ecb5c8;
+      border-radius: 999px;
+      padding: 0.5rem 0.95rem;
+      background: #fff;
+      color: #742243;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: 0.18s ease;
+      position: relative;
+    }
+
+    .action.primary {
+      background: linear-gradient(120deg, #e23a74, #ff73a3);
+      color: #fff;
+      border-color: #dc4f81;
+    }
+
+    .action:hover {
+      transform: translateY(-1px);
+    }
+
+    .runaway {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .tiny {
+      font-size: 0.78rem;
+      color: #9a6175;
+      margin-top: 0.55rem;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0.55rem;
+      text-align: left;
+      margin-top: 0.55rem;
+    }
+
+    .item {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.6rem;
+      background: #fff;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeIn 320ms ease forwards;
+    }
+
+    .item:nth-child(1) { animation-delay: 60ms; }
+    .item:nth-child(2) { animation-delay: 120ms; }
+    .item:nth-child(3) { animation-delay: 180ms; }
+    .item:nth-child(4) { animation-delay: 240ms; }
+    .item:nth-child(5) { animation-delay: 300ms; }
+
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .item strong {
+      display: block;
+      color: #7a2247;
+      margin-bottom: 0.15rem;
+    }
+
+    .slide-box {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 0.8rem;
+      background: #fff;
+      text-align: left;
+    }
+
+    .slide-num {
+      display: inline-block;
+      border-radius: 999px;
+      border: 1px solid #ebc6d5;
+      background: #fff4f8;
+      color: #7b2448;
+      padding: 0.12rem 0.45rem;
+      font-size: 0.75rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .dreams {
+      text-align: left;
+      margin: 0.5rem auto 0;
+      width: min(580px, 100%);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.65rem 0.8rem;
+      background: #fff;
+    }
+
+    .dreams li { margin: 0.22rem 0; color: #72485b; }
+
+    .final {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 12px;
+      opacity: 0.85;
+      top: -12px;
+      animation: drop 2.2s linear infinite;
+    }
+
+    @keyframes drop {
+      to {
+        transform: translateY(460px) rotate(360deg);
+        opacity: 0.2;
+      }
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="top">
+      <p class="title">Forever Yes - A Love Journey</p>
+      <a class="btn" href="./app.html">Back to Private</a>
+    </div>
+
+    <section class="stage" id="stage"></section>
+  </main>
+
+  <script>
+    const stage = document.getElementById("stage");
+
+    const memories = [
+      ["First meeting", "That first hello changed everything."],
+      ["Wedding day", "Two promises, one life, one team."],
+      ["Tough phase", "We stood together, even when it was hard."],
+      ["Becoming parents", "Our love grew into a family."],
+      ["Everyday joy", "Tea, talks, laughs, and little moments that mean everything."]
+    ];
+
+    const vows = [
+      ["Nourishment", "I promise to support our family with love and responsibility."],
+      ["Strength", "I will stand with you in every challenge, always."],
+      ["Prosperity", "I promise to build a stable future with you."],
+      ["Happiness", "I promise to keep joy alive even in routine days."],
+      ["Family", "I promise to honor parents, child, and shared duties."],
+      ["Health and Peace", "I promise to protect our mental and physical wellbeing."],
+      ["Friendship and Loyalty", "I promise lifelong friendship beyond romance."]
+    ];
+
+    function nextBtn(label, fn) {
+      return `<button class="action primary" onclick="${fn}">${label}</button>`;
+    }
+
+    function renderQuestion(noMoves = 0) {
+      const noClass = noMoves > 0 ? "action runaway" : "action";
+      stage.innerHTML = `
+        <article class="card">
+          <h1>I have one question today...</h1>
+          <p>Will you be my Valentine... today, tomorrow, always?</p>
+          <div class="controls">
+            <button class="action primary" onclick="renderSorry()">❤️ Yes</button>
+            <button id="noBtn" class="${noClass}" onclick="noClick(${noMoves})">❌ No</button>
+          </div>
+          <p class="tiny">Playful mode: only one answer is technically supported.</p>
+        </article>
+      `;
+
+      if (noMoves > 0) {
+        const btn = document.getElementById("noBtn");
+        const x = Math.floor(Math.random() * 220) - 110;
+        const y = Math.floor(Math.random() * 30);
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+      }
+    }
+
+    function noClick(count) {
+      if (count < 2) {
+        alert("System error: Only YES allowed 😄");
+        renderQuestion(count + 1);
+      } else {
+        renderSorry();
+      }
+    }
+
+    function renderSorry() {
+      stage.innerHTML = `
+        <article class="card">
+          <h2>Thank You for Choosing Us</h2>
+          <p>I know I am not perfect, and yes, I made mistakes at times.</p>
+          <p style="margin-top:0.35rem;">Still, you stayed, trusted, and chose us through everything. That means more than words can say.</p>
+          <p style="margin-top:0.35rem;">Thank you for your patience, strength, and love.</p>
+          <div class="controls">${nextBtn("Next: Memories", "renderMemories()")}</div>
+        </article>
+      `;
+    }
+
+    function renderMemories() {
+      const rows = memories.map(m => `<div class="item"><strong>${m[0]}</strong><span>${m[1]}</span></div>`).join("");
+      stage.innerHTML = `
+        <article class="card">
+          <h2>Our Memories Timeline</h2>
+          <p>Every chapter made us stronger.</p>
+          <div class="timeline">${rows}</div>
+          <div class="controls">${nextBtn("Next: Seven Vows", "renderVow(0)")}</div>
+        </article>
+      `;
+    }
+
+    function renderVow(index) {
+      const [name, text] = vows[index];
+      const next = index < vows.length - 1
+        ? `<button class="action primary" onclick="renderVow(${index + 1})">Next Vow</button>`
+        : `<button class="action primary" onclick="renderDreams()">Next: Future Dreams</button>`;
+      stage.innerHTML = `
+        <article class="card">
+          <h2>Saptapadi - Seven Vows</h2>
+          <div class="slide-box">
+            <span class="slide-num">Vow ${index + 1} of 7</span>
+            <h3 style="margin:0 0 0.25rem; color:#7a2247;">${name}</h3>
+            <p>${text}</p>
+          </div>
+          <div class="controls">${next}</div>
+        </article>
+      `;
+    }
+
+    function renderDreams() {
+      stage.innerHTML = `
+        <article class="card">
+          <h2>Our Future Dreams</h2>
+          <p>Long-term, hand in hand.</p>
+          <ul class="dreams">
+            <li>Financial freedom and peace</li>
+            <li>Farmhouse dream</li>
+            <li>Travel plans and memories</li>
+            <li>Our child's bright future</li>
+            <li>Growing old together with laughter</li>
+          </ul>
+          <div class="controls">${nextBtn("Final Message", "renderFinal()")}</div>
+        </article>
+      `;
+    }
+
+    function renderFinal() {
+      stage.innerHTML = `
+        <article class="card final">
+          <h2>Whatever life throws... I choose us.</h2>
+          <p>Not perfect love. Real love.</p>
+          <p style="margin-top:0.35rem;">Thank you for being my home.</p>
+          <div class="controls">
+            <button class="action primary" onclick="renderQuestion()">Replay Journey</button>
+          </div>
+          <div id="confettiLayer"></div>
+        </article>
+      `;
+      makeConfetti();
+    }
+
+    function makeConfetti() {
+      const layer = document.getElementById("confettiLayer");
+      if (!layer) return;
+      const colors = ["#ff7aa8", "#ffd166", "#7cf3cb", "#8ec5ff", "#ffb3d1"];
+      for (let i = 0; i < 28; i += 1) {
+        const d = document.createElement("div");
+        d.className = "confetti";
+        d.style.left = `${Math.random() * 100}%`;
+        d.style.background = colors[i % colors.length];
+        d.style.animationDelay = `${Math.random() * 1.3}s`;
+        d.style.animationDuration = `${1.8 + Math.random() * 1.6}s`;
+        layer.appendChild(d);
+      }
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
