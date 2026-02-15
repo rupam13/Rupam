@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Private Workspace</title>
+  <style>
+    :root {
+      --bg: #10161b;
+      --panel: #172229;
+      --line: #2d414c;
+      --text: #e7f2f8;
+      --muted: #96aab6;
+      --accent: #1aa37a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Segoe UI, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+    }
+    .wrap {
+      width: min(980px, calc(100% - 1rem));
+      margin: 1rem auto;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel);
+      overflow: hidden;
+    }
+    header {
+      padding: 0.75rem 0.9rem;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    h1 { margin: 0; font-size: 1.05rem; }
+    .btn {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.35rem 0.55rem;
+      font: inherit;
+      cursor: pointer;
+      background: #122029;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .btn.primary {
+      border-color: #28ba8f;
+      background: var(--accent);
+      color: #052016;
+      font-weight: 700;
+    }
+    .grid {
+      padding: 0.9rem;
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr 1fr;
+    }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.65rem;
+      background: #122029;
+    }
+    .card h2 {
+      margin: 0 0 0.35rem;
+      font-size: 0.92rem;
+      color: #cde6f2;
+    }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+    @media (max-width: 800px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h1>Private Workspace</h1>
+      <div>
+        <a class="btn" href="../index.html">Public Site</a>
+        <button class="btn primary" id="logoutBtn" type="button">Logout</button>
+      </div>
+    </header>
+    <section class="grid">
+      <article class="card">
+        <h2>Private Notes</h2>
+        <p>Use this space for draft ideas, client notes, and upcoming build plans.</p>
+      </article>
+      <article class="card">
+        <h2>Next Build Item</h2>
+        <p>Create your next private feature branch or concept list here.</p>
+      </article>
+      <article class="card">
+        <h2>ServiceNow Prep</h2>
+        <p>Track internal practice tasks without exposing them publicly.</p>
+      </article>
+      <article class="card">
+        <h2>Quick Links</h2>
+        <p>Add links to docs/repos you do not want in the public portfolio page.</p>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const KEY = "private_workspace_auth";
+    if (sessionStorage.getItem(KEY) !== "ok") {
+      window.location.replace("./index.html");
+    }
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      sessionStorage.removeItem(KEY);
+      window.location.replace("./index.html");
+    });
+  </script>
+</body>
+</html>

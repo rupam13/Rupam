@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Private Workspace Login</title>
+  <style>
+    :root {
+      --bg: #0f1418;
+      --panel: #172029;
+      --line: #2e3f4e;
+      --text: #e8f0f6;
+      --muted: #9fb1bf;
+      --accent: #1aa37a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: Segoe UI, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at 0% 0%, #1b2530 0, transparent 35%), var(--bg);
+    }
+    .card {
+      width: min(420px, calc(100% - 1rem));
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel);
+      padding: 1rem;
+    }
+    h1 { margin: 0 0 0.4rem; font-size: 1.2rem; }
+    p { margin: 0 0 0.9rem; color: var(--muted); font-size: 0.92rem; }
+    .field { margin-bottom: 0.7rem; }
+    label { display: block; margin-bottom: 0.25rem; font-size: 0.86rem; }
+    input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 0.55rem 0.6rem;
+      font: inherit;
+      color: var(--text);
+      background: #121920;
+    }
+    button {
+      width: 100%;
+      border: 1px solid #23b48a;
+      border-radius: 9px;
+      padding: 0.58rem;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      color: #041610;
+      background: var(--accent);
+    }
+    .msg { min-height: 1.2rem; margin-top: 0.6rem; font-size: 0.85rem; color: #ff8f8f; }
+    .hint { margin-top: 0.5rem; font-size: 0.78rem; color: #7e939f; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Private Workspace</h1>
+    <p>Sign in to access your private work area.</p>
+
+    <form id="loginForm">
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" autocomplete="username" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required />
+      </div>
+      <button type="submit">Login</button>
+      <div class="msg" id="msg"></div>
+      <div class="hint">Note: client-side login is for lightweight privacy only.</div>
+    </form>
+  </main>
+
+  <script>
+    const HASH = "c476eb929b1e347cfa5ba0bf384170d677c75134f490b7ac05d2930d2bcfafc3";
+    const KEY = "private_workspace_auth";
+
+    async function sha256(text) {
+      const data = new TextEncoder().encode(text);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      return [...new Uint8Array(hashBuffer)].map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value;
+      const msg = document.getElementById("msg");
+      msg.textContent = "";
+
+      const computed = await sha256(user + "|" + pass);
+      if (computed === HASH) {
+        sessionStorage.setItem(KEY, "ok");
+        window.location.href = "./app.html";
+      } else {
+        msg.textContent = "Invalid credentials.";
+      }
+    });
+  </script>
+</body>
+</html>
