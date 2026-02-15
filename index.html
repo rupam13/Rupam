@@ -4,486 +4,536 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rupam Wadibhasme | ServiceNow Transition Portfolio</title>
-  <meta name="description" content="Rupam Wadibhasme - Transitioning to ServiceNow Developer with strong automation, analytics, and operations engineering background." />
+  <meta name="description" content="Rupam Wadibhasme - Senior Analyst and automation specialist preparing for ServiceNow developer opportunities." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #060d18;
-      --panel: #0d1b30;
-      --panel-2: #112440;
-      --ink: #e9f2ff;
-      --muted: #a0b6d3;
-      --line: #25446f;
-      --accent: #66f58e;
-      --accent-2: #35d6ff;
-      --warn: #ffd166;
-      --chip: #132946;
+      --bg: #f3f0e9;
+      --paper: #fffef9;
+      --ink: #141414;
+      --muted: #4d4a45;
+      --line: #d4cfc1;
+      --accent: #1f7a52;
+      --accent-soft: #e7f2ec;
+      --block: #111111;
+      --block-ink: #f4f4f2;
       --radius: 18px;
-      --shadow: 0 24px 58px rgba(0, 0, 0, 0.35);
+      --shadow: 0 22px 42px rgba(20, 20, 20, 0.08);
     }
 
     * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: "Sora", "Segoe UI", sans-serif;
+      font-family: "Manrope", "Segoe UI", sans-serif;
       color: var(--ink);
-      background:
-        radial-gradient(900px 520px at 15% -25%, rgba(53, 214, 255, 0.16), transparent 65%),
-        radial-gradient(750px 500px at 100% 0%, rgba(102, 245, 142, 0.15), transparent 70%),
-        var(--bg);
-      min-height: 100vh;
+      background: radial-gradient(circle at 92% 2%, #f5ecd8 0, transparent 24%), var(--bg);
       line-height: 1.6;
     }
 
-    .grid-overlay {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.16;
-      background-image:
-        linear-gradient(rgba(160, 182, 211, 0.12) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(160, 182, 211, 0.12) 1px, transparent 1px);
-      background-size: 28px 28px;
-      mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
-    }
-
-    .container {
-      width: min(1140px, calc(100% - 1.2rem));
-      margin: 1rem auto 2.4rem;
+    .shell {
+      width: min(1140px, calc(100% - 1rem));
+      margin: 0.8rem auto 2rem;
       border: 1px solid var(--line);
       border-radius: 22px;
       overflow: hidden;
-      background: linear-gradient(160deg, #0a172d 0%, #0d1d36 55%, #112443 100%);
+      background: var(--paper);
       box-shadow: var(--shadow);
-      animation: reveal 520ms ease-out both;
     }
 
-    @keyframes reveal {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    header {
-      padding: 1.3rem 1.2rem;
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.72rem 1rem;
       border-bottom: 1px solid var(--line);
-      background: linear-gradient(130deg, rgba(53, 214, 255, 0.10), rgba(102, 245, 142, 0.08));
+      background: #f9f5ea;
+      position: sticky;
+      top: 0;
+      z-index: 20;
     }
 
-    .badge {
-      display: inline-block;
-      border-radius: 999px;
-      padding: 0.2rem 0.62rem;
-      font-size: 0.76rem;
-      font-family: "JetBrains Mono", monospace;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: "Space Grotesk", sans-serif;
       font-weight: 700;
-      letter-spacing: 0.04em;
-      background: var(--accent);
-      color: #04190d;
+      letter-spacing: 0.02em;
+      font-size: 0.92rem;
+    }
+
+    .dot {
+      width: 0.78rem;
+      height: 0.78rem;
+      border-radius: 999px;
+      background: linear-gradient(130deg, #1f7a52, #8bc8aa);
+      box-shadow: 0 0 0 4px #dbeadf;
+    }
+
+    .nav {
+      display: flex;
+      gap: 0.34rem;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      text-decoration: none;
+      border: 1px solid #cec8ba;
+      border-radius: 999px;
+      padding: 0.2rem 0.58rem;
+      color: #3f3a34;
+      font-size: 0.78rem;
+      background: #fffaf1;
+    }
+
+    .hero {
+      padding: 1.25rem 1rem;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 1rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #23593f;
+      background: var(--accent-soft);
+      border: 1px solid #c3dfd0;
+      border-radius: 999px;
+      padding: 0.2rem 0.58rem;
     }
 
     h1 {
-      margin: 0.6rem 0 0;
-      font-size: clamp(1.7rem, 5vw, 2.9rem);
-      line-height: 1.12;
+      margin: 0.7rem 0 0;
+      line-height: 1.1;
+      font-size: clamp(1.9rem, 6vw, 3.4rem);
       letter-spacing: -0.03em;
+      max-width: 18ch;
+      font-family: "Space Grotesk", sans-serif;
     }
 
-    .pitch {
-      margin: 0.65rem 0 0.9rem;
+    .lead {
+      margin: 0.75rem 0 1rem;
       color: var(--muted);
-      max-width: 76ch;
+      max-width: 65ch;
     }
 
-    .meta, .top-cta {
+    .ctas {
       display: flex;
       flex-wrap: wrap;
       gap: 0.45rem;
-      margin: 0;
-      padding: 0;
-      list-style: none;
     }
-
-    .meta li {
-      border: 1px solid #315783;
-      border-radius: 999px;
-      padding: 0.2rem 0.6rem;
-      background: #112745;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.8rem;
-      color: #c2d6ee;
-    }
-
-    .meta a { color: #b9ecff; text-decoration: none; }
-
-    .top-cta { margin-top: 0.9rem; }
 
     .btn {
-      border: 1px solid #2f588a;
-      border-radius: 999px;
       text-decoration: none;
-      color: #c7e8ff;
-      background: #112948;
-      padding: 0.33rem 0.72rem;
+      border-radius: 999px;
+      padding: 0.34rem 0.76rem;
+      font-weight: 700;
       font-size: 0.82rem;
-      font-weight: 600;
+      border: 1px solid #1d5b3e;
+      color: #133726;
+      background: #dff1e7;
     }
 
-    .btn.primary {
-      background: linear-gradient(130deg, var(--accent), #b3ffc8);
-      color: #072413;
-      border-color: #8effb2;
+    .btn.alt {
+      border-color: #c9c2b2;
+      color: #3e3b34;
+      background: #fff8ec;
     }
 
-    .main {
-      padding: 1rem 1.2rem 1.3rem;
+    .meta {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fffcf5;
+      padding: 0.85rem;
+      align-self: start;
+    }
+
+    .meta h2 {
+      margin: 0 0 0.6rem;
+      font-size: 0.83rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #4a453d;
+    }
+
+    .meta-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
       display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 0.95rem;
+      gap: 0.42rem;
+      font-size: 0.88rem;
+    }
+
+    .meta-list a { color: #215f41; text-decoration: none; }
+
+    .belt {
+      border-bottom: 1px solid var(--line);
+      background: #151515;
+      color: #ecece9;
+      overflow: hidden;
+      white-space: nowrap;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.02em;
+    }
+
+    .belt span {
+      display: inline-block;
+      padding: 0.46rem 0;
+      animation: ticker 24s linear infinite;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .content {
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 0.8rem;
     }
 
     .card {
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: linear-gradient(180deg, var(--panel-2), var(--panel));
-      padding: 0.92rem;
+      padding: 0.9rem;
+      background: #fffdf6;
     }
 
-    h2 {
-      margin: 0 0 0.62rem;
-      font-size: 0.87rem;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-      font-family: "JetBrains Mono", monospace;
-      color: #9ed9ff;
-    }
-
-    .status-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.45rem;
-    }
-
-    .status {
-      border: 1px solid #2f527d;
-      border-radius: 12px;
-      padding: 0.62rem;
-      background: #10233f;
-    }
-
-    .status strong {
-      display: block;
-      color: var(--accent-2);
+    .card h3 {
+      margin: 0 0 0.6rem;
+      font-family: "Space Grotesk", sans-serif;
+      letter-spacing: -0.01em;
       font-size: 1rem;
     }
 
-    .status span {
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.36rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tag-row li {
+      border: 1px solid #cfc7b7;
+      border-radius: 999px;
+      padding: 0.16rem 0.52rem;
       font-size: 0.78rem;
-      color: var(--muted);
+      background: #f8f1e4;
+      color: #463f34;
     }
 
-    .switch {
-      display: inline-flex;
-      border: 1px solid #345a89;
-      border-radius: 999px;
-      padding: 0.18rem;
-      gap: 0.2rem;
-      margin-bottom: 0.75rem;
-      background: #0f2039;
-    }
-
-    .switch button {
-      border: 0;
-      border-radius: 999px;
-      padding: 0.3rem 0.6rem;
-      color: #bdd3ef;
-      background: transparent;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.75rem;
-      cursor: pointer;
-    }
-
-    .switch button.active {
-      color: #052513;
-      background: var(--accent);
-      font-weight: 700;
-    }
-
-    .panel { display: none; }
-    .panel.active { display: block; animation: fade 260ms ease; }
-    @keyframes fade { from { opacity: 0; transform: translateY(6px);} to {opacity:1; transform: translateY(0);} }
-
-    .timeline {
+    .exp {
       list-style: none;
       margin: 0;
       padding: 0;
       display: grid;
-      gap: 0.65rem;
+      gap: 0.55rem;
     }
 
-    .timeline li {
-      border: 1px solid #294b76;
-      border-radius: 14px;
-      background: #102542;
-      padding: 0.75rem;
+    .exp li {
+      border: 1px solid #d6cebe;
+      border-radius: 12px;
+      padding: 0.65rem;
+      background: #fffbf2;
+      opacity: 0;
+      transform: translateY(10px);
     }
 
-    .line-head {
+    .exp li.show {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 380ms ease;
+    }
+
+    .exp-head {
       display: flex;
       justify-content: space-between;
+      gap: 0.45rem;
       align-items: baseline;
-      gap: 0.55rem;
       flex-wrap: wrap;
     }
 
-    .role { margin: 0; font-weight: 700; }
-    .org { margin: 0.1rem 0 0.35rem; color: var(--muted); }
+    .role { margin: 0; font-weight: 800; font-size: 0.93rem; }
+    .org { margin: 0.12rem 0 0.34rem; color: #565048; font-size: 0.86rem; }
 
     .date {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.72rem;
-      background: #c8ffe0;
-      color: #082311;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 0.74rem;
       border-radius: 999px;
-      padding: 0.15rem 0.58rem;
+      background: #deefe6;
+      color: #1f5d40;
+      padding: 0.16rem 0.5rem;
+      border: 1px solid #badac9;
       font-weight: 700;
     }
 
-    .points { margin: 0; padding-left: 1rem; }
-    .points li { margin: 0.16rem 0; }
-
-    .chips {
-      list-style: none;
-      margin: 0;
-      padding: 0;
+    .filters {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.42rem;
+      gap: 0.36rem;
+      margin-bottom: 0.58rem;
     }
 
-    .chips li {
-      border: 1px solid #2d5282;
+    .filters button {
+      border: 1px solid #cbc4b5;
+      background: #fff8ea;
       border-radius: 999px;
-      padding: 0.16rem 0.58rem;
-      background: var(--chip);
-      font-size: 0.82rem;
-      color: #d5e7ff;
-    }
-
-    .roadmap {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 0.48rem;
-    }
-
-    .roadmap li {
-      border-left: 3px solid var(--warn);
-      background: #132440;
-      border-radius: 9px;
-      padding: 0.44rem 0.58rem;
-      font-size: 0.88rem;
-    }
-
-    details {
-      border: 1px solid #2f527d;
-      background: #0f223d;
-      border-radius: 12px;
-      padding: 0.56rem 0.64rem;
-    }
-
-    details + details { margin-top: 0.46rem; }
-
-    summary {
+      padding: 0.2rem 0.56rem;
+      font-size: 0.75rem;
       cursor: pointer;
-      font-weight: 700;
-      color: #d7e8ff;
+      color: #443f37;
     }
 
-    .caption {
-      margin: 0.25rem 0 0;
-      color: var(--muted);
-      font-size: 0.86rem;
+    .filters button.active {
+      background: #1f7a52;
+      color: #f7fff9;
+      border-color: #1f7a52;
+    }
+
+    .projects {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .project {
+      border: 1px solid #d5ccbc;
+      border-radius: 14px;
+      background: #111111;
+      color: #f2f2ef;
+      padding: 0.72rem;
+      transition: transform 180ms ease;
+    }
+
+    .project:hover { transform: translateY(-2px); }
+
+    .project h4 {
+      margin: 0;
+      font-size: 0.93rem;
+      letter-spacing: -0.01em;
+    }
+
+    .project p {
+      margin: 0.32rem 0 0;
+      color: #d0d0ca;
+      font-size: 0.83rem;
+    }
+
+    .project span {
+      display: inline-block;
+      margin-top: 0.48rem;
+      font-size: 0.72rem;
+      border: 1px solid #3e3e3e;
+      border-radius: 999px;
+      padding: 0.12rem 0.42rem;
+      color: #d8d8d2;
     }
 
     footer {
       border-top: 1px solid var(--line);
-      padding: 0.8rem 1.2rem 1rem;
+      padding: 0.72rem 1rem 1rem;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      color: #8dabcb;
-      font-size: 0.8rem;
+      gap: 0.4rem;
+      font-size: 0.76rem;
+      color: #625b50;
+      background: #faf6ea;
     }
 
-    @media (max-width: 920px) {
-      .main { grid-template-columns: 1fr; }
-      .status-grid { grid-template-columns: 1fr; }
+    @media (max-width: 930px) {
+      .hero, .content { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 600px) {
-      .container { width: calc(100% - 0.75rem); }
-      header, .main, footer { padding-left: 0.82rem; padding-right: 0.82rem; }
-      .line-head { align-items: flex-start; }
+    @media (max-width: 640px) {
+      .shell { width: calc(100% - 0.5rem); margin-top: 0.35rem; }
+      .topbar, .hero, .content, footer { padding-left: 0.72rem; padding-right: 0.72rem; }
+      h1 { max-width: none; }
+      .nav { display: none; }
     }
   </style>
 </head>
 <body>
-  <div class="grid-overlay" aria-hidden="true"></div>
+  <main class="shell">
+    <div class="topbar">
+      <div class="brand"><span class="dot"></span> Rupam Portfolio</div>
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
 
-  <main class="container">
-    <header>
-      <span class="badge">SERVICENOW TRANSITION READY</span>
-      <h1>Rupam Wadibhasme</h1>
-      <p class="pitch">Senior Analyst focused on platform solutions and process improvement, now targeting ServiceNow Developer roles. I bring proven strengths in workflow design, service issue analysis, SLA discipline, integrations, and automation delivery.</p>
-      <ul class="meta">
-        <li>India</li>
-        <li><a href="mailto:rupam13@hotmail.com">rupam13@hotmail.com</a></li>
-        <li>+91 8857851277</li>
-        <li><a href="https://www.linkedin.com/in/rupam-wadibhasme-82832912a/" target="_blank" rel="noreferrer">LinkedIn</a></li>
-        <li><a href="https://github.com/rupam13" target="_blank" rel="noreferrer">github.com/rupam13</a></li>
-      </ul>
-      <ul class="top-cta">
-        <li><a class="btn primary" href="./Profile%20(1).pdf">Download Resume</a></li>
-        <li><a class="btn" href="https://www.linkedin.com/in/rupam-wadibhasme-82832912a/" target="_blank" rel="noreferrer">View LinkedIn</a></li>
-      </ul>
-    </header>
-
-    <section class="main">
-      <div class="card" style="grid-column: 1 / -1;">
-        <h2>Transition Snapshot</h2>
-        <div class="status-grid">
-          <div class="status"><strong>7+ years</strong><span>Operations, platform, and automation exposure</span></div>
-          <div class="status"><strong>Current role</strong><span>Senior Analyst, Magnit Global (Platform Solutions)</span></div>
-          <div class="status"><strong>Current focus</strong><span>Platform solutions, automation delivery, and process improvement</span></div>
+    <section class="hero" id="about">
+      <div>
+        <span class="label">Available For ServiceNow-Focused Roles</span>
+        <h1>Senior analyst and automation builder moving into ServiceNow development.</h1>
+        <p class="lead">I bring platform workflow experience, incident-process understanding, strong SLA discipline, and automation delivery background. This portfolio highlights why I can contribute quickly in ServiceNow implementation and support teams.</p>
+        <div class="ctas">
+          <a class="btn" href="./Profile%20(1).pdf">Download Resume</a>
+          <a class="btn alt" href="https://www.linkedin.com/in/rupam-wadibhasme-82832912a/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn alt" href="https://github.com/rupam13" target="_blank" rel="noreferrer">GitHub</a>
         </div>
       </div>
 
-      <div class="card">
-        <h2>Experience</h2>
-        <div class="switch" role="tablist" aria-label="Profile views">
-          <button class="active" data-target="servicenow-panel" role="tab" aria-selected="true">ServiceNow Role Fit</button>
-          <button data-target="automation-panel" role="tab" aria-selected="false">Automation Foundation</button>
-        </div>
+      <aside class="meta" id="contact">
+        <h2>Quick Info</h2>
+        <ul class="meta-list">
+          <li><strong>Name:</strong> Rupam Wadibhasme</li>
+          <li><strong>Email:</strong> <a href="mailto:rupam13@hotmail.com">rupam13@hotmail.com</a></li>
+          <li><strong>Phone:</strong> +91 8857851277</li>
+          <li><strong>Location:</strong> India</li>
+          <li><strong>Focus:</strong> Process improvement, platform operations, automation</li>
+        </ul>
+      </aside>
+    </section>
 
-        <div id="servicenow-panel" class="panel active" role="tabpanel">
-          <ul class="timeline">
-            <li>
-              <div class="line-head">
-                <p class="role">Senior Analyst - Process Improvement and Platform Solutions</p>
-                <span class="date">Mar 2025 - Present</span>
-              </div>
-              <p class="org">Magnit Global</p>
-              <ul class="points">
-                <li>Configured workflow logic and platform processes to improve turnaround and user experience.</li>
-                <li>Performed root cause analysis on recurring service issues and implemented preventive enhancements.</li>
-                <li>Tracked SLA and KPI trends to drive continuous service improvement.</li>
-              </ul>
-            </li>
-            <li>
-              <div class="line-head">
-                <p class="role">Assistant Manager - Operations and Process Controls</p>
-                <span class="date">2018 - 2020</span>
-              </div>
-              <p class="org">Axis Bank and HDFC Bank</p>
-              <ul class="points">
-                <li>Handled incident-like escalations, transaction failures, and service resolution timelines.</li>
-                <li>Maintained audit-ready records and strict process controls aligned to governance needs.</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+    <div class="belt"><span>Service operations • workflow automation • incident handling • platform improvement • API integrations • analytics dashboards • Service operations • workflow automation • incident handling • platform improvement • API integrations • analytics dashboards • </span></div>
 
-        <div id="automation-panel" class="panel" role="tabpanel">
-          <ul class="timeline">
-            <li>
-              <div class="line-head">
-                <p class="role">Lead AI Specialist</p>
-                <span class="date">Jan 2023 - Mar 2025</span>
-              </div>
-              <p class="org">E42.ai</p>
-              <ul class="points">
-                <li>Led enterprise AI and automation use cases with OCR, APIs, and Python workflows.</li>
-                <li>Converted business requirements into deployable automation solutions across teams.</li>
-              </ul>
-            </li>
-            <li>
-              <div class="line-head">
-                <p class="role">AI Agent Specialist</p>
-                <span class="date">Jan 2022 - Mar 2025</span>
-              </div>
-              <p class="org">E42.ai</p>
-              <ul class="points">
-                <li>Delivered intelligent workflow automation for operational efficiency and accuracy.</li>
-                <li>Integrated API-based services and process orchestration for end-to-end automation.</li>
-              </ul>
-            </li>
-          </ul>
+    <section class="content" id="work">
+      <article class="card" id="experience">
+        <h3>Experience</h3>
+        <div class="filters" aria-label="Filter experience">
+          <button class="active" data-filter="all">All</button>
+          <button data-filter="platform">Platform</button>
+          <button data-filter="automation">Automation</button>
+          <button data-filter="operations">Operations</button>
         </div>
-      </div>
+        <ul class="exp">
+          <li class="show" data-type="platform">
+            <div class="exp-head">
+              <p class="role">Senior Analyst - Process Improvement and Platform Solutions</p>
+              <span class="date">Mar 2025 - Present</span>
+            </div>
+            <p class="org">Magnit Global</p>
+            <ul>
+              <li>Enhanced platform workflows and scripted logic for faster turnaround.</li>
+              <li>Performed RCA on recurring service issues and delivered fixes.</li>
+              <li>Tracked SLA and KPI trends for continuous improvement.</li>
+            </ul>
+          </li>
+          <li class="show" data-type="automation">
+            <div class="exp-head">
+              <p class="role">Lead AI Specialist</p>
+              <span class="date">Jan 2023 - Mar 2025</span>
+            </div>
+            <p class="org">E42.ai</p>
+            <ul>
+              <li>Led OCR/API workflow delivery for enterprise clients.</li>
+              <li>Converted business requirements into automation solutions.</li>
+            </ul>
+          </li>
+          <li class="show" data-type="automation">
+            <div class="exp-head">
+              <p class="role">AI Agent Specialist</p>
+              <span class="date">Jan 2022 - Mar 2025</span>
+            </div>
+            <p class="org">E42.ai</p>
+            <ul>
+              <li>Built intelligent workflows to improve quality and efficiency.</li>
+              <li>Integrated services and process orchestration for operations.</li>
+            </ul>
+          </li>
+          <li class="show" data-type="operations">
+            <div class="exp-head">
+              <p class="role">Assistant Manager - Operations and Process Controls</p>
+              <span class="date">2018 - 2020</span>
+            </div>
+            <p class="org">Axis Bank and HDFC Bank</p>
+            <ul>
+              <li>Handled high-volume requests and escalation workflows.</li>
+              <li>Maintained control standards and audit-ready records.</li>
+            </ul>
+          </li>
+        </ul>
+      </article>
 
-      <div class="card">
-        <h2>Core Skills</h2>
-        <ul class="chips">
+      <aside class="card">
+        <h3>Core Capabilities</h3>
+        <ul class="tag-row">
           <li>ITSM Concepts</li>
-          <li>Incident and Request Flows</li>
-          <li>SLA and KPI Tracking</li>
+          <li>Incident Flows</li>
+          <li>Request Management</li>
+          <li>SLA / KPI Tracking</li>
           <li>Workflow Automation</li>
-          <li>API Integrations</li>
-          <li>Process Governance</li>
-          <li>Root Cause Analysis</li>
           <li>Python</li>
           <li>SQL</li>
           <li>Power BI</li>
+          <li>API Integrations</li>
+          <li>Process Governance</li>
         </ul>
-      </div>
 
-      <div class="card" style="grid-column: 1 / -1;">
-        <h2>Interactive Portfolio Evidence</h2>
-        <details open>
-          <summary>Platform Workflow Automation - Magnit Global</summary>
-          <p class="caption">Designed process flows, scripted logic, and operational dashboards to improve cycle times and service outcomes.</p>
-        </details>
-        <details>
-          <summary>AI and OCR Automation Delivery - E42.ai</summary>
-          <p class="caption">Implemented OCR and API-driven automations for enterprise use cases, reducing manual work and improving throughput.</p>
-        </details>
-        <details>
-          <summary>Operations and Escalation Controls - Banking Domain</summary>
-          <p class="caption">Managed escalation-heavy processes with SLA focus, strong validations, and audit-compliant documentation.</p>
-        </details>
-      </div>
+        <h3 style="margin-top:0.85rem;">Selected Work</h3>
+        <div class="projects">
+          <div class="project">
+            <h4>Platform Workflow Uplift</h4>
+            <p>Improved process cycle time by refining workflow logic and operational controls.</p>
+            <span>Magnit Global</span>
+          </div>
+          <div class="project">
+            <h4>OCR + API Automation Delivery</h4>
+            <p>Delivered automation modules for document and process-heavy business use cases.</p>
+            <span>E42.ai</span>
+          </div>
+          <div class="project">
+            <h4>Escalation and Control Handling</h4>
+            <p>Managed incident-like requests with SLA focus in regulated banking operations.</p>
+            <span>Axis / HDFC</span>
+          </div>
+        </div>
+      </aside>
     </section>
 
     <footer>
-      <span>Last updated: February 15, 2026 | Positioned for ServiceNow transition</span>
-      <span>Available for ServiceNow Developer opportunities</span>
+      <span>Last updated: February 15, 2026</span>
+      <span>Designed as a recruiter-facing transition portfolio</span>
     </footer>
   </main>
 
   <script>
-    const buttons = document.querySelectorAll('.switch button');
-    const panels = document.querySelectorAll('.panel');
+    const filterButtons = document.querySelectorAll('.filters button');
+    const items = document.querySelectorAll('.exp li');
 
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const target = button.getAttribute('data-target');
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const type = btn.dataset.filter;
+        filterButtons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
 
-        buttons.forEach((btn) => {
-          btn.classList.remove('active');
-          btn.setAttribute('aria-selected', 'false');
+        items.forEach((item) => {
+          const show = type === 'all' || item.dataset.type === type;
+          item.style.display = show ? 'block' : 'none';
         });
-        button.classList.add('active');
-        button.setAttribute('aria-selected', 'true');
-
-        panels.forEach((panel) => panel.classList.remove('active'));
-        document.getElementById(target).classList.add('active');
       });
     });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    items.forEach((item) => observer.observe(item));
   </script>
 </body>
 </html>
-
