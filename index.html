@@ -561,36 +561,28 @@
     .orbit-picks {
       margin-top: 0.45rem;
       width: 100%;
-      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.24rem;
+      max-height: 84px;
+      overflow: auto;
       border: 1px solid #cbe4df;
-      border-radius: 999px;
+      border-radius: 10px;
       background: rgba(242, 252, 248, 0.92);
-      padding: 0.15rem 0.3rem;
+      padding: 0.24rem;
       position: relative;
       z-index: 2;
-    }
-
-    .orbit-picks-track {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      min-width: max-content;
-      animation: skillMarquee 26s linear infinite;
     }
 
     .orbit-picks span {
       border: 1px solid #b9ddd5;
       border-radius: 999px;
-      padding: 0.12rem 0.42rem;
-      font-size: 0.66rem;
+      padding: 0.1rem 0.36rem;
+      font-size: 0.62rem;
       color: #1d6b5d;
       background: #f2fcf8;
       white-space: nowrap;
-    }
-
-    @keyframes skillMarquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
     }
 
     .skill-controls {
@@ -1263,15 +1255,11 @@
 
     function renderOrbitFill() {
       orbitPicks.innerHTML = '';
-      const track = document.createElement('div');
-      track.className = 'orbit-picks-track';
-      const names = Array.from(picked);
-      names.concat(names).forEach((name) => {
+      Array.from(picked).forEach((name) => {
         const pill = document.createElement('span');
         pill.textContent = name;
-        track.appendChild(pill);
+        orbitPicks.appendChild(pill);
       });
-      orbitPicks.appendChild(track);
       const pct = Math.round((picked.size / maxSkills) * 100);
       coreFill.textContent = `Readiness: ${pct}%`;
       coreWater.style.height = `${pct}%`;
