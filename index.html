@@ -1,0 +1,393 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rupam | ServiceNow Developer Portfolio</title>
+  <meta name="description" content="Rupam Suresh Wadibhasme - ServiceNow Developer, RPA Engineer, and Automation Specialist." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08111f;
+      --panel: #0f1d33;
+      --panel-2: #132645;
+      --text: #e9f2ff;
+      --muted: #9fb2cc;
+      --line: #274269;
+      --brand: #7df27d;
+      --brand-2: #00d1ff;
+      --chip: #172d50;
+      --shadow: 0 28px 60px rgba(0, 0, 0, 0.35);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Sora", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(800px 400px at 5% -15%, rgba(0, 209, 255, 0.20), transparent 60%),
+        radial-gradient(700px 420px at 95% 5%, rgba(125, 242, 125, 0.18), transparent 64%),
+        var(--bg);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    .scan {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 3px,
+        rgba(255, 255, 255, 0.02) 4px
+      );
+      opacity: 0.5;
+      animation: pulse 3s linear infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.42; }
+      50% { opacity: 0.55; }
+    }
+
+    .container {
+      width: min(1100px, calc(100% - 2rem));
+      margin: 1.2rem auto 3rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: linear-gradient(140deg, #0b1830 0%, #0f1f38 42%, #12284a 100%);
+      box-shadow: var(--shadow);
+      animation: in 520ms ease-out both;
+    }
+
+    @keyframes in {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      position: relative;
+      padding: 2rem 1.2rem 1.4rem;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(115deg, rgba(0,209,255,0.08), rgba(125,242,125,0.06));
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 0.75rem;
+      color: #0a1f06;
+      background: var(--brand);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    h1 {
+      margin: 0.7rem 0 0;
+      line-height: 1.12;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin: 0.65rem 0 1rem;
+      color: var(--muted);
+      max-width: 72ch;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 0.82rem;
+    }
+
+    .meta li {
+      border: 1px solid #2a456e;
+      background: #102441;
+      border-radius: 999px;
+      padding: 0.2rem 0.62rem;
+      color: #b7cae5;
+    }
+
+    .meta a {
+      color: #b7e7ff;
+      text-decoration: none;
+    }
+
+    .main {
+      padding: 1rem 1.2rem 1.5rem;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1.6fr 1fr;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(180deg, #0f2340 0%, #0e1e35 100%);
+      padding: 1rem;
+    }
+
+    h2 {
+      margin: 0 0 0.6rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9dd6ff;
+      font-family: "JetBrains Mono", Consolas, monospace;
+    }
+
+    .timeline {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .timeline li {
+      border: 1px solid #244066;
+      border-radius: 14px;
+      padding: 0.8rem;
+      background: #112744;
+    }
+
+    .line-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.8rem;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+
+    .role { margin: 0; font-weight: 700; }
+    .org { margin: 0.1rem 0 0.4rem; color: var(--muted); font-size: 0.95rem; }
+
+    .date {
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 0.74rem;
+      color: #051d03;
+      background: var(--brand);
+      border-radius: 999px;
+      padding: 0.18rem 0.58rem;
+      font-weight: 700;
+    }
+
+    .points {
+      margin: 0;
+      padding-left: 1rem;
+    }
+
+    .points li { margin: 0.18rem 0; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .chips li {
+      border: 1px solid #2a4f7f;
+      border-radius: 999px;
+      background: var(--chip);
+      padding: 0.2rem 0.58rem;
+      font-size: 0.85rem;
+      color: #d5e5ff;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
+    }
+
+    .stat {
+      border: 1px solid #2c4a72;
+      border-radius: 12px;
+      background: #0d203a;
+      padding: 0.6rem;
+    }
+
+    .num {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--brand-2);
+    }
+
+    .label {
+      margin: 0.1rem 0 0;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 0.9rem 1.2rem 1.2rem;
+      color: #8fa9c8;
+      font-size: 0.82rem;
+      display: flex;
+      gap: 0.6rem;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .cta {
+      text-decoration: none;
+      color: #041b12;
+      background: linear-gradient(120deg, var(--brand), #9dffcc);
+      border-radius: 999px;
+      padding: 0.34rem 0.7rem;
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 900px) {
+      .main { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .container { width: calc(100% - 0.75rem); }
+      header, .main, footer { padding-left: 0.85rem; padding-right: 0.85rem; }
+      .stat-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scan" aria-hidden="true"></div>
+  <main class="container">
+    <header>
+      <span class="tag">SERVICENOW + RPA</span>
+      <h1>Rupam Suresh Wadibhasme</h1>
+      <p class="subtitle">ServiceNow-focused developer and Lead RPA Engineer with 4+ years of experience delivering workflow automation, enterprise integrations, analytics dashboards, and chatbot solutions.</p>
+      <ul class="meta">
+        <li>Pune, India</li>
+        <li><a href="mailto:rupamwadibhasme@gmail.com">rupamwadibhasme@gmail.com</a></li>
+        <li><a href="https://github.com/rupam" target="_blank" rel="noreferrer">github.com/rupam</a></li>
+        <li><a href="https://www.linkedin.com/in/rupam-wadibhasme-82832912a/" target="_blank" rel="noreferrer">LinkedIn</a></li>
+      </ul>
+    </header>
+
+    <section class="main">
+      <div class="card">
+        <h2>Experience</h2>
+        <ul class="timeline">
+          <li>
+            <div class="line-head">
+              <p class="role">Lead RPA Engineer</p>
+              <span class="date">Jan 2022 - Present</span>
+            </div>
+            <p class="org">Light Information System</p>
+            <ul class="points">
+              <li>Built AI-assisted automation solutions reducing manual intervention by 80%.</li>
+              <li>Delivered workflow solutions for invoice extraction, approvals, and multichannel bookings.</li>
+              <li>Developed analytics dashboards to convert operational data into actionable KPIs.</li>
+              <li>Collaborated with cross-functional teams for rollouts, training, and governance.</li>
+            </ul>
+          </li>
+          <li>
+            <div class="line-head">
+              <p class="role">Assistant Manager - Operations</p>
+              <span class="date">Feb 2020 - Jul 2020</span>
+            </div>
+            <p class="org">HDFC Bank Limited</p>
+            <ul class="points">
+              <li>Improved process throughput by 20% through structured operations improvements.</li>
+              <li>Managed reconciliations, compliance checks, and customer support escalations.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Core Skills</h2>
+        <ul class="chips">
+          <li>ServiceNow Workflows</li>
+          <li>ITSM Concepts</li>
+          <li>RPA Development</li>
+          <li>Python</li>
+          <li>SQL</li>
+          <li>Power BI</li>
+          <li>PostgreSQL</li>
+          <li>NLP Chatbots</li>
+          <li>REST Integrations</li>
+          <li>Business Analysis</li>
+        </ul>
+
+        <h2 style="margin-top:1rem;">Impact Snapshot</h2>
+        <div class="stat-grid">
+          <div class="stat">
+            <p class="num">80%</p>
+            <p class="label">Manual work reduced</p>
+          </div>
+          <div class="stat">
+            <p class="num">30%</p>
+            <p class="label">Invoice cycle faster</p>
+          </div>
+          <div class="stat">
+            <p class="num">40%</p>
+            <p class="label">Chat engagement uplift</p>
+          </div>
+          <div class="stat">
+            <p class="num">4+ yrs</p>
+            <p class="label">Automation experience</p>
+          </div>
+        </div>
+
+        <h2 style="margin-top:1rem;">Education</h2>
+        <p>MBA (Finance), Nagpur University (2022)</p>
+        <p>B.Tech (Engineering), RTMNU (2017)</p>
+      </div>
+
+      <div class="card" style="grid-column: 1 / -1;">
+        <h2>Portfolio Highlights</h2>
+        <ul class="timeline">
+          <li>
+            <div class="line-head">
+              <p class="role">Invoice Automation Platform</p>
+              <span class="date">Python + RPA</span>
+            </div>
+            <p class="org">Automated extraction, validation, and workflow routing of invoice data.</p>
+          </li>
+          <li>
+            <div class="line-head">
+              <p class="role">Multichannel Chatbot</p>
+              <span class="date">NLP + Integrations</span>
+            </div>
+            <p class="org">Built chatbot experience for Teams, WhatsApp, and web appointment use cases.</p>
+          </li>
+          <li>
+            <div class="line-head">
+              <p class="role">Executive KPI Dashboard Suite</p>
+              <span class="date">Power BI + SQL</span>
+            </div>
+            <p class="org">Delivered drill-down operational dashboards for monitoring SLA, throughput, and exceptions.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <span>Last updated: February 15, 2026</span>
+      <a class="cta" href="./resume.pdf">Download Resume PDF</a>
+    </footer>
+  </main>
+</body>
+</html>
