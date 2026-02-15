@@ -645,7 +645,6 @@
       bottom: 0;
       height: 0%;
       background: linear-gradient(180deg, rgba(67, 184, 167, 0.22), rgba(33, 146, 130, 0.35));
-      transition: height 380ms ease;
       z-index: 1;
     }
 
@@ -683,6 +682,25 @@
       font-weight: 800;
       position: relative;
       z-index: 4;
+    }
+
+    .core-progress {
+      margin-top: 0.32rem;
+      width: 88%;
+      height: 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(120, 180, 171, 0.65);
+      background: rgba(238, 250, 247, 0.8);
+      overflow: hidden;
+      position: relative;
+      z-index: 4;
+    }
+
+    .core-progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(32, 146, 130, 0.78), rgba(67, 184, 167, 0.92));
+      box-shadow: 0 0 12px rgba(32, 146, 130, 0.45);
     }
 
     .skill-controls {
@@ -1106,6 +1124,7 @@
             <div class="core-water" id="coreWater"></div>
             <p class="core-title">ServiceNow Developer</p>
             <p class="core-fill" id="coreFill">Readiness: 0%</p>
+            <div class="core-progress" aria-hidden="true"><div class="core-progress-fill" id="coreProgressFill"></div></div>
           </div>
         </div>
         <div class="skill-controls">
@@ -1260,6 +1279,7 @@
     const cursorDot = document.getElementById('cursorDot');
     const cursorRing = document.getElementById('cursorRing');
     const orbitWrap = document.getElementById('orbitWrap');
+    const orbitSection = document.getElementById('orbit');
     const orbitStatus = document.getElementById('orbitStatus');
     const orbitSparks = document.getElementById('orbitSparks');
 
@@ -1373,6 +1393,7 @@
     const skillButtons = Array.from(document.querySelectorAll('.skill-btn'));
     const coreFill = document.getElementById('coreFill');
     const coreWater = document.getElementById('coreWater');
+    const coreProgressFill = document.getElementById('coreProgressFill');
     const pipeLines = Array.from(document.querySelectorAll('.pipe-line'));
     const pipeBubbles = Array.from(document.querySelectorAll('.pipe-bubble'));
     const picked = new Set();
@@ -1387,22 +1408,19 @@
         const value = Math.round(from + (targetPct - from) * eased);
         coreFill.textContent = `Readiness: ${value}%`;
         coreWater.style.height = `${value}%`;
+        coreProgressFill.style.width = `${value}%`;
         if (t < 1) {
           requestAnimationFrame(step);
         } else {
           coreFill.textContent = `Readiness: ${targetPct}%`;
           coreWater.style.height = `${targetPct}%`;
+          coreProgressFill.style.width = `${targetPct}%`;
         }
       };
       requestAnimationFrame(step);
     }
 
     function renderOrbitFill() {
-      if (!readinessStarted) {
-        animateReadiness(100, 2800);
-        readinessStarted = true;
-      }
-
       const sourceCount = {
         banking: 0,
         automation: 0,
@@ -1430,6 +1448,22 @@
       btn.classList.add('used');
       btn.disabled = true;
     });
+
+    if (orbitSection && 'IntersectionObserver' in window) {
+      const orbitObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !readinessStarted) {
+            readinessStarted = true;
+            animateReadiness(100, 7000);
+            observer.unobserve(orbitSection);
+          }
+        });
+      }, { threshold: 0.45 });
+      orbitObserver.observe(orbitSection);
+    } else if (!readinessStarted) {
+      readinessStarted = true;
+      animateReadiness(100, 7000);
+    }
 
     renderOrbitFill();
 
